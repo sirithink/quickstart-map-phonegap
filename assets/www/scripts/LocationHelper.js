@@ -7,13 +7,17 @@
  */
 var LocationHelper = function(/* esri.Map */ map){
 
+    /////
+    // PRIVATE Variables
+    /////
+
     this._map = map;
     this._watchID = null;
     this._setHighAccuracy = true;
     this._webMercatorMapPoint = null;
-    this._accuracyDataCSV = "date,lat,lon,accuracy,high_accuracy_boolean,altitude,heading,speed,altitude_accuracy,interval_time,total_elapsed_time,\r\n";
-    this._pushPinLarge = new esri.symbol.PictureMarkerSymbol("images/pushpin104x108.png", 104, 108).setColor(new dojo.Color([0, 0, 255]));
-    this._pushPinSmall = new esri.symbol.PictureMarkerSymbol("images/pushpin2.png", 48, 48).setColor(new dojo.Color([0, 0, 255]));
+    this._accuracyDataCSV = "Date,Lat,Long,Accuracy,High_accuracy_boolean,Altitude,Heading,Speed,Altitude_accuracy,Interval_time,Total_elapsed_time,\r\n";
+    this._pushPinLarge = new esri.symbol.PictureMarkerSymbol("images/pushpin104x108.png", 104, 108);
+    this._pushPinSmall = new esri.symbol.PictureMarkerSymbol("images/pushpin52x54.png", 48, 48);
     this._locatorMarkerLarge = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_DIAMOND,
         10,
         new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0,0,0]), 1),
@@ -27,6 +31,10 @@ var LocationHelper = function(/* esri.Map */ map){
     this._map.addLayer(this._locatorMarkerGraphicsLayer);
     this._supportsLocalStorage = false;
     this._orientation = null;
+
+    /////
+    // PUBLIC Variables
+    /////
 
     /**
      * A property indicating a reference to the current view.
@@ -120,7 +128,7 @@ var LocationHelper = function(/* esri.Map */ map){
     this.geoSliderOnOff = null;
     /**
      * Local Storage ENUMs
-     * @type {Function}
+     * @type {Object}
      */
     this.localStorageEnum = (function(){
         var values = {
@@ -217,6 +225,7 @@ LocationHelper.prototype.startGeolocation = function(){
      * @private
      */
     function _processGeolocationResult(position) {
+
         var html5Lat = position.coords.latitude; //Get latitude
         var html5Lon = position.coords.longitude; //Get longitude
         var html5TimeStamp = position.timestamp; //Get timestamp
@@ -229,13 +238,7 @@ LocationHelper.prototype.startGeolocation = function(){
         this.geoIndicatorDiv.text("Geo: ON");
         this.geoIndicatorDiv.css('color','green');
 
-        try{
-            this._displayGeocodedLocation(html5Lat, html5Lon, html5TimeStamp, html5Accuracy,html5Heading,html5Speed,html5Altitude);
-        }
-        catch(error)
-        {
-            console.log("Error " + error.toString());
-        }
+        this._displayGeocodedLocation(html5Lat, html5Lon, html5TimeStamp, html5Accuracy,html5Heading,html5Speed,html5Altitude);
 
         if (html5Lat != null && html5Lon != null) {
             //zoomToLocation(html5Lat, html5Lon);
@@ -249,12 +252,9 @@ LocationHelper.prototype.startGeolocation = function(){
                 var dateNow = new Date();
                 var totalElapsedTime =  _getTimeDifference(new Date(Math.abs(dateNow.getTime() - _dateStart.getTime())));
 
-                if(_previousDate == null){
-                    newDateDiff = new Date(Math.abs(dateNow.getTime() - _dateStart.getTime()));
-                }
-                else{
+                _previousDate == null ?
+                    newDateDiff = new Date(Math.abs(dateNow.getTime() - _dateStart.getTime())) :
                     newDateDiff = new Date(Math.abs(dateNow.getTime() - _previousDate.getTime()));
-                }
 
                 _previousDate = new Date();
 
@@ -364,11 +364,11 @@ LocationHelper.prototype.startGeolocation = function(){
  * @private
  */
 LocationHelper.prototype._displayGeocodedLocation = function(html5Lat, html5Lon, html5TimeStamp, html5Accuracy, html5Heading, html5Speed, html5Altitude) {
-    var altitude = "N/A";
+    var altitude = "n/a";
     if(html5Altitude != null) altitude = html5Altitude.toFixed(2) + "m";
-    var speed = "N/A";
+    var speed = "n/a";
     if (html5Speed != null) (html5Speed * 3600 / 1000).toFixed(2) + "km/hr";
-    var heading = "N/A";
+    var heading = "n/a";
     if (html5Heading != null) html5Heading.toFixed(2) + "deg";
 
     this.locationDiv.text(html5Lat.toFixed(4) + ", " + html5Lon.toFixed(4));
@@ -395,15 +395,15 @@ LocationHelper.prototype._displayGeocodedLocation = function(html5Lat, html5Lon,
  */
 LocationHelper.prototype._showLocation = function(/* number */myLat,/* number */myLong,/* esri.geometry.Geometry */geometry) {
 
-    var HomeSymbol = null;
+    var myPositionSymbol = null;
     var locatorSymbol = null;
 
     if(window.devicePixelRatio >= 2){
-        HomeSymbol = this._pushPinLarge;
+        myPositionSymbol = this._pushPinLarge;
         locatorSymbol = this._locatorMarkerLarge;
     }
     else{
-        HomeSymbol = this._pushPinSmall;
+        myPositionSymbol = this._pushPinSmall;
         locatorSymbol = this._locatorMarkerSmall;
     }
 
@@ -413,7 +413,7 @@ LocationHelper.prototype._showLocation = function(/* number */myLat,/* number */
     //    map.infoWindow.show(mapPoint, esri.dijit.InfoWindow.ANCHOR_LOWERLEFT);
 
     this._map.graphics.clear();
-    this._map.graphics.add(new esri.Graphic(geometry, HomeSymbol));
+    this._map.graphics.add(new esri.Graphic(geometry, myPositionSymbol));
     this._map.centerAndZoom(geometry, this.zoomLevel);
 
     if(this.accumulate == true)this._locatorMarkerGraphicsLayer.add(new esri.Graphic(geometry, locatorSymbol));
@@ -421,7 +421,10 @@ LocationHelper.prototype._showLocation = function(/* number */myLat,/* number */
 }
 
 /**
- * Repositions the map after a screen rotation
+ * RECOMMENDATION FOR PHONEGAP - set property in manifest to prevent screen rotation!
+ * Repositions the map after a screen rotation. Note there are bugs in jQuery
+ * related to screen rotation when you are in a child view.
+ * These bugs can affect the map and its associated properties.
  * @param value Timer delay property in ms
  */
 LocationHelper.prototype.rotateScreen = (function(value){

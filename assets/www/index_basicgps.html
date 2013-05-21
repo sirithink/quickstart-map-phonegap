@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>Basic Map</title>
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
+    <style  type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #mapDiv {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+        }
+    </style>
+
+    <!-- Load the library references for ArcGIS API for JavaScript -->
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5compact"></script>
+    <script type="text/javascript" charset="utf-8" src="scripts/cordova-2.7.0.js"></script>
+    <script>
+        require(["esri/map","esri/symbols/PictureMarkerSymbol","esri/graphic","esri/geometry/Point"],
+                function(Map,PictureMarkerSymbol,Graphic,Point) {
+                    // Create map
+                    var map = new Map("mapDiv",{
+                        basemap: "topo",
+                        center: [-122.69, 45.52],
+                        zoom: 14
+                    });
+
+                    var markerSymbol = new PictureMarkerSymbol({
+                        "angle":0,
+                        "xoffset":0,
+                        "yoffset":0,
+                        "type":"esriPMS",
+                        "url":"images/green-pin.png",
+                        "width":35,
+                        "height":35
+                    })
+
+
+                    navigator.geolocation.getCurrentPosition(locationSuccess,locationError,{setHighAccuracy:true});
+
+                    function locationSuccess(position){
+                        var wgsPt = new esri.geometry.Point(position.coords.longitude,position.coords.latitude, new esri.SpatialReference({ wkid: 4326 }))
+                        var webMercatorPt = esri.geometry.geographicToWebMercator(wgsPt);
+                       map.graphics.add(new esri.Graphic(webMercatorPt, markerSymbol));
+                       map.centerAndZoom(webMercatorPt, 14);
+                    }
+
+                    function locationError(err){
+                        console.log("locationError: " + err.message);
+                    }
+
+                }
+        );
+    </script>
+</head>
+<body>
+    <div id="mapDiv"></div>
+</body>
+</html>
