@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Basic Map</title>
+    <title>Basic GPS Map</title>
     <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
     <style  type="text/css">
         body, html {
@@ -23,15 +23,16 @@
     <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5compact"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/cordova-2.7.0.js"></script>
     <script>
-        require(["esri/map","esri/symbols/PictureMarkerSymbol","esri/graphic","esri/geometry/Point"],
+        require(["esri/map","esri/symbols/PictureMarkerSymbol","esri/Graphic","esri/geometry/Point"],
                 function(Map,PictureMarkerSymbol,Graphic,Point) {
                     // Create map
                     var map = new Map("mapDiv",{
                         basemap: "topo",
-                        center: [-122.69, 45.52],
-                        zoom: 14
+                        center: [-98.6, 39.8],
+                        zoom: 2
                     });
 
+                    // Create the marker symbol
                     var markerSymbol = new PictureMarkerSymbol({
                         "angle":0,
                         "xoffset":0,
@@ -43,13 +44,16 @@
                     })
 
 
+                    // Call the geolocation service
                     navigator.geolocation.getCurrentPosition(locationSuccess,locationError,{setHighAccuracy:true});
 
+                    // Handle location success
                     function locationSuccess(position){
-                        var wgsPt = new esri.geometry.Point(position.coords.longitude,position.coords.latitude, new esri.SpatialReference({ wkid: 4326 }))
-                        var webMercatorPt = esri.geometry.geographicToWebMercator(wgsPt);
-                       map.graphics.add(new esri.Graphic(webMercatorPt, markerSymbol));
-                       map.centerAndZoom(webMercatorPt, 14);
+                        if(position.coords.latitude != null || position.coords.longitude != null){
+                            var wgsPt = new esri.geometry.Point(position.coords.longitude,position.coords.latitude);
+                            map.graphics.add(new esri.Graphic(wgsPt, markerSymbol));
+                            map.centerAndZoom(wgsPt, 14);
+                        }
                     }
 
                     function locationError(err){

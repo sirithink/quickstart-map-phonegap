@@ -14,7 +14,7 @@ var LocationHelper = function(/* esri.Map */ map){
     this._map = map;
     this._watchID = null;
     this._setHighAccuracy = true;
-    this._webMercatorMapPoint = null;
+    this._mostRecentLocation = null;
     this._accuracyDataCSV = "Date,Lat,Long,Accuracy,High_accuracy_boolean,Altitude,Heading,Speed,Altitude_accuracy,Interval_time,Total_elapsed_time,\r\n";
     this._pushPinLarge = new esri.symbol.PictureMarkerSymbol("images/pushpin104x108.png", 104, 108);
     this._pushPinSmall = new esri.symbol.PictureMarkerSymbol("images/pushpin52x54.png", 48, 48);
@@ -278,10 +278,10 @@ LocationHelper.prototype.startGeolocation = function(){
             }
 
             if(html5Lat != 0){
-                var wgsPt = new esri.geometry.Point(html5Lon,html5Lat, new esri.SpatialReference({ wkid: 4326 }))
-                this._webMercatorMapPoint = esri.geometry.geographicToWebMercator(wgsPt);
-                //this._map.centerAndZoom(this._webMercatorMapPoint, 14);
-                this._showLocation(html5Lat,html5Lon,this._webMercatorMapPoint);
+                //var wgsPt = new esri.geometry.Point(html5Lon,html5Lat);
+                this._mostRecentLocation =  new esri.geometry.Point(html5Lon,html5Lat);
+                //this._map.centerAndZoom(this._mostRecentLocation, 14);
+                this._showLocation(html5Lat,html5Lon,this._mostRecentLocation);
 
                 if(this._supportsLocalStorage){
                     localStorage.setItem(this.localStorageEnum().LAT,html5Lat);
@@ -440,7 +440,7 @@ LocationHelper.prototype.rotateScreen = (function(value){
             var timeout = null;
             value != "undefined" ? timeout = value : timeout = 500;
             setTimeout((function(){
-                if(this._map != null && this._webMercatorMapPoint != null){
+                if(this._map != null && this._mostRecentLocation != null){
 
                     //NOTE: This attempts to fix a bug in jQuery where rotating
                     //device from a child window resets map div values and other map properties.

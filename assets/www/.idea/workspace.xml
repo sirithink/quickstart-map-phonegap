@@ -4,12 +4,14 @@
     <list default="true" id="02c103b1-411f-42a1-b86f-7dddb2216707" name="Default" comment="" />
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/index.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369170200487" ignored="false" />
+    <file path="/index.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369345476860" ignored="false" />
     <file path="/LocationHelper.js" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369175236260" ignored="false" />
     <file path="/index_a.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369096286202" ignored="false" />
     <file path="/index_helloworld.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369167530759" ignored="false" />
     <file path="/index_basicmap.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369175761027" ignored="false" />
-    <file path="/index_basicgps.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369179559365" ignored="false" />
+    <file path="/index_basicgps.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369330115218" ignored="false" />
+    <file path="/Library/WebServer/Documents/test/index.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369248864054" ignored="false" />
+    <file path="/index_basicjquerymobile.html" changelist="02c103b1-411f-42a1-b86f-7dddb2216707" time="1369333003883" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,10 +31,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file leaf-file-name="index_advancedjquerymobile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index_advancedjquerymobile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="1168" selection-end="1259" vertical-scroll-proportion="62.4">
+            <state line="314" column="38" selection-start="11990" selection-end="11990" vertical-scroll-proportion="-23.2">
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#div#2;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -43,28 +45,37 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="LocationHelper.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scripts/LocationHelper.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="128" column="0" selection-start="3414" selection-end="3806" vertical-scroll-proportion="0.12917271">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index_basicjquerymobile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index_basicjquerymobile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="54" column="0" selection-start="1861" selection-end="2020" vertical-scroll-proportion="-13.083333">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index_basicmap.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index_basicmap.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="27" selection-start="390" selection-end="390" vertical-scroll-proportion="-4.375">
+            <state line="15" column="25" selection-start="564" selection-end="564" vertical-scroll-proportion="-9.375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index_basicgps.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index_basicgps.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index_basicgps.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="74" selection-start="2376" selection-end="2376" vertical-scroll-proportion="0.8683068">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LocationHelper.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/LocationHelper.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="395" column="38" selection-start="13145" selection-end="13158" vertical-scroll-proportion="-179.42308">
+            <state line="25" column="70" selection-start="975" selection-end="975" vertical-scroll-proportion="-15.625">
               <folding />
             </state>
           </provider>
@@ -84,10 +95,12 @@
         <option value="$PROJECT_DIR$/index_helloworld.html" />
         <option value="$PROJECT_DIR$/index_test.html" />
         <option value="$PROJECT_DIR$/css/images/esri.css" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/scripts/LocationHelper.js" />
         <option value="$PROJECT_DIR$/index_basicmap.html" />
+        <option value="$PROJECT_DIR$/index_basicjquerymobile.html" />
         <option value="$PROJECT_DIR$/index_basicgps.html" />
+        <option value="$PROJECT_DIR$/scripts/LocationHelper.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/index_advancedjquerymobile.html" />
       </list>
     </option>
   </component>
@@ -210,6 +223,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="Errors" />
+    <property name="last_opened_file_path" value="/Library/WebServer/Documents/test" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -341,14 +355,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index_basicmap.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="27" selection-start="390" selection-end="390" vertical-scroll-proportion="-4.375">
+        <state line="15" column="25" selection-start="564" selection-end="564" vertical-scroll-proportion="-9.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/index_basicjquerymobile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="1168" selection-end="1259" vertical-scroll-proportion="62.4">
+        <state line="54" column="0" selection-start="1861" selection-end="2020" vertical-scroll-proportion="-13.083333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index_basicgps.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="70" selection-start="975" selection-end="975" vertical-scroll-proportion="-15.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index_advancedjquerymobile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="314" column="38" selection-start="11990" selection-end="11990" vertical-scroll-proportion="-23.2">
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#2;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -360,14 +388,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/LocationHelper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="395" column="38" selection-start="13145" selection-end="13158" vertical-scroll-proportion="-179.42308">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index_basicgps.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="74" selection-start="2376" selection-end="2376" vertical-scroll-proportion="0.8683068">
+        <state line="128" column="0" selection-start="3414" selection-end="3806" vertical-scroll-proportion="0.12917271">
           <folding />
         </state>
       </provider>
