@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>Basic Map</title>
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
+    <style  type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #mapDiv {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+        }
+    </style>
+
+    <!-- Load the library references for ArcGIS API for JavaScript -->
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>
+    <script type="text/javascript" charset="utf-8" src="scripts/cordova-2.7.0.js"></script>
+    <script>
+        require(["esri/map","esri/arcgis/utils","esri/dijit/Legend","esri/dijit/Scalebar","dijit/layout/BorderContainer",
+            "dijit/layout/ContentPane"],
+                function(Map,utils,Legend,Scalebar,BorderContainer,ContentPane) {
+                    // Create map
+
+                    var map = null;
+                    utils.arcgisUrl = utils.arcgisUrl.replace("file:", "http:");
+                    var mapDeferred = utils.createMap("39eaff06c0ee4a8e9c89d66976faac75", "mapDiv");
+                    mapDeferred.then(function(response) {
+                        console.log("hah");
+                        dojo.byId("title").innerHTML = response.itemInfo.item.title;
+                        dojo.byId("subtitle").innerHTML = response.itemInfo.item.snippet;
+
+                        map = response.map;
+
+                        //get the layers that will display in the legend.
+                        var layers = utils.getLegendLayers(response);
+                        console.log(layers);
+
+                        if (map.loaded) {
+                            initMap(layers);
+                        } else {
+                            dojo.connect(map, "onLoad", function() {
+                                initMap(layers);
+                            });
+                        }
+
+                    },function(error){
+                        console.log("Map creation failed: ", dojo.toJson(error));
+                    });
+
+
+                    function initMap(layers){
+                        //add a scalebar
+                        var scalebar = new Scalebar({
+                            map:map,
+                            scalebarUnit: "english"
+                        });
+
+                        //add a legend
+                        var legendDijit = new Legend({
+                            map:map,
+                            layerInfos: layers
+                        },"legend");
+
+                        legendDijit.startup();
+                    }
+
+                    console.log('test');
+                }
+        );
+    </script>
+</head>
+<body class="claro">
+<div id="mainWindow" data-dojo-type="BorderContainer" data-dojo-props="design:'headline'" style="width:100%; height:100%;">
+    <div id="header" class="shadow roundedCorners" data-dojo-type="ContentPane" data-dojo-props="region:'top'">
+        <div id="title"></div>
+        <div id="subtitle"></div>
+    </div>
+    <div id="mapDiv" class="roundedCorners shadow" data-dojo-type="ContentPane" data-dojo-props="region:'center'"></div>
+    <div id="rightPane" class="roundedCorners shadow" data-dojo-type="ContentPane" data-dojo-props="region:'right'" >
+        <div id="legend"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -469,7 +469,7 @@
                         controller._orientation = controller.localStorageEnum().LANDSCAPE;
             }
             catch(err){
-                console.log(err.message);
+                console.log("_supportsLocationStorage: " + err.message);
             }
         }
 
@@ -507,7 +507,7 @@
         }
         catch(err){
             alert("Unable to start geolocation. See console.log for message.")
-            console.log(err.toString());
+            console.log("startGeolocation: " + err.message);
         }
 
         /**
@@ -643,6 +643,11 @@
 
     }
 
+    /**
+     * Write geolocation values to UX
+     * @param position
+     * @private
+     */
     controller._displayGeocodedLocation = function(position) {
         var altitude = "n/a";
         if(position.coords.altitude != null) altitude = position.coords.altitude.toFixed(2) + "m";
